@@ -37,7 +37,7 @@ div {
 
 
 <body>
-<center><h1><font color="white">Insurance Prediction</h1></center>
+<center><h1><font color="black">Heart disease risk Prediction</font> </h1></center>
 <h2>     </h2>
 
 <div align="center" style="margin-right: 30%;
@@ -45,21 +45,49 @@ div {
 
   <form method="POST">
   <form action="/action_page.php">
-    <label for="price"></label>
-    <input type="number" id="price" name="price" placeholder="Price (between 38 and 1027)" min="38" max="1027" step="0.1" required size="35">
 
-    <label for="Tax"></label>
-    <input type="number" id="Tax" name="Tax" placeholder="Tax (between 2 or 103)" min="2" max="103" step="0.1" required size="35">
+    <label for="age">Age</label>
+    <input type="number" id="age" name="age" placeholder="age (between 38 and 1027)" value="66" step="0.1" required size="35">
 
-    <label for="Driver_Age"></label>
-    <input type="number" id="Driver_Age" name="Driver_Age" placeholder="Driver Age (between 18 and 74)" min="18" max="74" required>
+    <label for="sex">Sex</label>
+    <input type="number" id="sex" name="sex" placeholder="sex (between 2 or 103)" value="0" step="0.1" required size="35">
 
-    <label for="Licence_Length_Years"></label>
-    <input type="number" id="Licence_Length_Years" name="Licence_Length_Years" placeholder="Licence Length in Years (between 0 and 16.5)" min="-0.3" max="16.5" step="0.1" required>
+    <label for="cp">Cp</label>
+    <input type="number" id="cp" name="cp" placeholder="cp (between 18 and 74)" value="0" required>
+
+    <label for="trestbps">Trestbps</label>
+    <input type="number" id="trestbps" name="trestbps" placeholder="trestbps (between 0 and 16.5)" value="178" step="0.1" required>
+
+    <label for="chol">Chol</label>
+    <input type="number" id="chol" name="chol" placeholder="chol (between 18 and 74)" value="228" required>
+
+    <label for="fbs">Fbs</label>
+    <input type="number" id="fbs" name="fbs" placeholder="fbs (between 18 and 74)" value="1" required>
+
+    <label for="restecg">Restecg</label>
+    <input type="number" id="restecg" name="restecg" placeholder="restecg (between 18 and 74)" value="1" required>
+
+    <label for="thalach">Thalach</label>
+    <input type="number" id="thalach" name="thalach" placeholder="thalach (between 18 and 74)" value="165" required>
+
+    <label for="exang">Exang</label>
+    <input type="number" id="exang" name="exang" placeholder="exang (between 18 and 74)" value="1" required>
+
+    <label for="oldpeak">Oldpeak</label>
+    <input type="number" id="oldpeak" name="oldpeak" placeholder="oldpeak (between 18 and 74)" value="1" required>
+
+    <label for="slope">Slope</label>
+    <input type="number" id="slope" name="slope" placeholder="slope (between 18 and 74)" value="1" required>
+
+    <label for="ca">Ca</label>
+    <input type="number" id="ca" name="ca" placeholder="ca (between 18 and 74)" value="2" required>
+
+    <label for="thal">Thal</label>
+    <input type="number" id="thal" name="thal" placeholder="thal (between 18 and 74)" value="3" required>
 
     <select name="req_model">
-    <option value="Logistic">Logistic Regression</option>
-    <option value="RandomForest">Random Forest</option>
+    <option value="KNN">K-Nearest Neighbours</option>
+    <option value="DecisionTree">Decision Tree</option>
     <option value="SVM">SVM</option>
   </select>
 
@@ -69,8 +97,8 @@ div {
 </form>
 
 <form method="GET">
-    <center><h2><font color="Black"> Sale Category is {{ target}}</h2></center>
-    <center><h2><font color="Black"> {{ sale_making}}</h2></center>
+  <center><h2><font color="Black"> Heart risk level is is {{ target}}</font></h2></center>
+  <center><h2><font color="Black"> {{ risk_level}}</font></h2></center>
 </form>
 
 

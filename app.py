@@ -1,33 +1,37 @@
 #This is Heroku Deployment Lectre
+
 from flask import Flask, request, render_template
+from sklearn import tree
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 import os
-import pickle
+import joblib
 
 print("Test")
 print("Test 2")
 print(os.getcwd())
 path = os.getcwd()
 
-with open('Models/logistic_model.pkl', 'rb') as f:
-    logistic = pickle.load(f)
+with open('Models/knn_model.pkl', 'rb') as f:
+    logistic = joblib.load(f)
 
-with open('Models/RF_model.pkl', 'rb') as f:
-    randomforest = pickle.load(f)
+with open('Models/dtc_model.pkl', 'rb') as f:
+    randomforest = joblib.load(f)
 
-with open('Models/svm_clf_model.pkl', 'rb') as f:
-    svm_model = pickle.load(f)
+with open('Models/svm_rbf_model.pkl', 'rb') as f:
+    svm_model = joblib.load(f)
 
 
-def get_predictions(price, Tax, Driver_Age, Licence_Length_Years, req_model):
-    mylist = [Driver_Age, Tax, price, Licence_Length_Years]
+def get_predictions(age, sex, cp, trestbps, chol, fbs, restecg, thalach,exang, oldpeak, slope, ca, thal, req_model):
+    mylist = [age, sex, cp, trestbps, chol, fbs, restecg, thalach,exang, oldpeak, slope, ca, thal]
     mylist = [float(i) for i in mylist]
     vals = [mylist]
 
-    if req_model == 'Logistic':
+    if req_model == 'KNN':
         #print(req_model)
         return logistic.predict(vals)[0]
 
-    elif req_model == 'RandomForest':
+    elif req_model == 'DecisionTree':
         #print(req_model)
         return randomforest.predict(vals)[0]
 
@@ -49,20 +53,36 @@ def homepage():
 @app.route('/', methods=['POST', 'GET'])
 def my_form_post():
     if request.method == 'POST':
-        price = request.form['price']
-        Tax = request.form['Tax']
-        Driver_Age = request.form['Driver_Age']
-        Licence_Length_Years = request.form['Licence_Length_Years']
+        age = request.form['age']
+        sex = request.form['sex']
+        cp= request.form['cp']
+        trestbps= request.form['trestbps']
+        chol= request.form['chol']
+        fbs= request.form['fbs']
+        restecg= request.form['restecg']
+        thalach= request.form['thalach']
+        exang= request.form['exang']
+        oldpeak= request.form['oldpeak']
+        slope= request.form['slope']
+        ca= request.form['ca']
+        thal= request.form['thal']
         req_model = request.form['req_model']
 
-        target = get_predictions(price, Tax, Driver_Age, Licence_Length_Years, req_model)
+        target = get_predictions(age, sex, cp, trestbps, chol, fbs, restecg, thalach,exang, oldpeak, slope, ca, thal, req_model)
+        risk_level=0
+        if target==0:
+            risk_level = 'No heart disease'
+        if target == 1:
+            risk_level = 'Low risk of a heart disease'
+        if target==2:
+            risk_level = 'Average risk of a heart disease'
+        if target == 3:
+            risk_level = 'High risk of a heart disease'
+        if target==4:
+            risk_level = 'Extreme risk of a heart disease'
+            # risk_level = 'Impossible to determine the risk of a heart disease'
 
-        if target==1:
-            sale_making = 'Customer is likely to buy the insurance'
-        else:
-            sale_making = 'Customer is unlikely to buy the insurance'
-
-        return render_template('home.html', target = target, sale_making = sale_making)
+        return render_template('home.html', target = target, risk_level = risk_level)
     else:
         return render_template('home.html')
 
