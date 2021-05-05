@@ -73,15 +73,7 @@ def my_form_post():
         if target==0:
             risk_level = 'No heart disease'
         if target == 1:
-            risk_level = 'Low risk of a heart disease'
-        if target==2:
-            risk_level = 'Average risk of a heart disease'
-        if target == 3:
-            risk_level = 'High risk of a heart disease'
-        if target==4:
-            risk_level = 'Extreme risk of a heart disease'
-            # risk_level = 'Impossible to determine the risk of a heart disease'
-
+            risk_level = 'There is a high risk of having a heart disease'
         return render_template('home.html', target = target, risk_level = risk_level)
     else:
         return render_template('home.html')
